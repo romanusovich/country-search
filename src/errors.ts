@@ -1,14 +1,24 @@
 export class HttpError extends Error {
-  status = 0;
+  status: number;
 
-  constructor(_status: number) {
-    super('not implemented');
-    throw new Error('not implemented');
+  constructor(status: number) {
+    super(`HTTP error: ${status}`);
+    this.name = 'HttpError';
+    this.status = status;
   }
 }
 
 export type ErrorKind = 'cancelled' | 'timeout' | 'http' | 'network';
 
-export function classifyError(_error: unknown): ErrorKind {
-  throw new Error('not implemented');
+export function classifyError(error: unknown): ErrorKind {
+  if (error instanceof DOMException && error.name === 'AbortError') {
+    return 'cancelled';
+  }
+  if (error instanceof DOMException && error.name === 'TimeoutError') {
+    return 'timeout';
+  }
+  if (error instanceof HttpError) {
+    return 'http';
+  }
+  return 'network';
 }
