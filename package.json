@@ -4,7 +4,7 @@
   "description": "Живой поиск стран по имени через публичный countries.dev (GET https://countries.dev/name/{query}, без ключа и регистрации, с поддержкой CORS). Пользователь печатает — приложение само, по мере ввода, посылает запросы и показывает результаты.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
